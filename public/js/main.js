@@ -66,3 +66,26 @@ $('#leave-chat').click(function() {
     }
   });
 });
+
+$('#send-message').click(function() {
+  var username = $(this).data('username');
+  var message = $.trim($('#message').val());
+  $.ajax({
+    url: '/send_message',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      'username': username,
+      'message': message
+    },
+    success: function(response) {
+      if(response.status == 'OK') {
+        socket.emit('message', {
+          'username': username,
+          'message': message
+        });
+        $('#message').val('');
+      }
+    }
+  });
+});
