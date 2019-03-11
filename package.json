@@ -1,0 +1,29 @@
+{
+  "name": "redis-node-socket",
+  "version": "1.0.0",
+  "description": "socket connection using redis with node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "10.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javascriptFan/redis-node-socket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javascriptFan/redis-node-socket/issues"
+  },
+  "homepage": "https://github.com/javascriptFan/redis-node-socket#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "expressjs": "^1.0.1",
+    "redis": "^2.8.0",
+    "socket.io": "^2.2.0"
+  }
+}
