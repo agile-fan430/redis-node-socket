@@ -1,4 +1,4 @@
-import { Socket } from "dgram";
+import { Socket, createSocket } from "dgram";
 
 $.get('/get_chatters', function(response) {
   $('.chat-info').text("There are currently " + response.length + " people in the chat rooom");
@@ -35,6 +35,33 @@ $('#join-chat').click(function() {
       } else if(response.status == 'FAILED') { //username already exists
         alert('Sorry but the username already exists, please choose another one');
         $('#username').val('').focus();
+      }
+    }
+  });
+});
+
+$('#leave-chat').click(function() {
+  var username = $(this).data('username');
+  $.ajax({
+    url: '/leave',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      username: username
+    },
+    success: function(response) {
+      if(response.status == "OK") {
+        socket.emit('message', {
+          'username': username,
+          'message': username + " has left the chat room"
+        });
+        socket.emit('update_chatter_count', {
+          'action': 'decrease'
+        });
+        $('.chat').hide();
+        $('.join-chat').show();
+        $('#username').val('');
+        alert('You have successfully left the chat room');
       }
     }
   });
