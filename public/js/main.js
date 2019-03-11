@@ -89,3 +89,20 @@ $('#send-message').click(function() {
     }
   });
 });
+
+
+socket.on('send', function(data) {
+  var username = data.username;
+  var message = data.message;
+  var html = "<div class='msg'><div class='user'>" + username + "</div><div class='txt'>" + message + '</div>';
+  $('.messsages').append(html);
+});
+
+socket.on('count_chatters', function(data) {
+  if(data.action == 'increase') {
+    chatter_count++;
+  } else {
+    chatter_count--;
+  }
+  $('.chat-info').text("There are currently " + chatter_count + " people in the chat room");
+})
