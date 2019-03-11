@@ -55,3 +55,30 @@ fs.readFile('./config/creds.json', 'utf-8', function(err, data) {
     });
   });
 });
+
+// API - Join Chat
+app.post('/join', function(req, res) {
+  var username = req.body.username;
+  if(chatters.indexOf(username) === -1) {
+    chatters.push(username);
+    client.set('chat_users', JSON.stringify(chatters));
+    res.send({
+      'chatters': chatters,
+      'status': 'OK'
+    });
+  } else {
+    res.send({
+      'status': 'FAILED'
+    });
+  }
+});
+
+// API - Leave Chat
+app.post('/leave', function(req, res) {
+  var username = req.body.username;
+  chatters.splice(chatters.indexOf(username), 1);
+  client.set('chat_users', JSON.stringify(chatters));
+  res.send({
+    'status': 'OK'
+  });
+});
